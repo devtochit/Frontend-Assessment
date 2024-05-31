@@ -81,7 +81,7 @@ export const DeleteDeviceInfoForm = () => {
 
           <Input
             className="text-center"
-            type="number"
+            type="text"
             id="id"
             name="id"
             value={formData.id}

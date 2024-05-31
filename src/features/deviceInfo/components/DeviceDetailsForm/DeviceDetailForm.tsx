@@ -102,7 +102,7 @@ export const AddDeviceInfoForm = () => {
         <div className="flex flex-col gap-2 w-[450px]">
           <Input
             className="text-center"
-            type="number"
+            type="text"
             id="year"
             name="year"
             value={formData.data.year}
@@ -116,7 +116,7 @@ export const AddDeviceInfoForm = () => {
         <div className="flex flex-col gap-2 w-[450px]">
           <Input
             className="text-center"
-            type="number"
+            type="text"
             id="price"
             name="price"
             value={formData.data.price}

@@ -146,7 +146,7 @@ export const EditDeviceInfoForm = () => {
             type="text"
             id="CPUModel"
             name="CPUModel"
-            value={formData.data.CPUModel}
+            value={formData.data['CPU model']}
             onChange={handleChange}
             placeholder="CPU Model"
             width="w-full"
@@ -160,7 +160,7 @@ export const EditDeviceInfoForm = () => {
             type="text"
             id="hardDiskSize"
             name="hardDiskSize"
-            value={formData.data.hardDiskSize}
+            value={formData.data['Hard disk size']}
             onChange={handleChange}
             placeholder="Hard Disk Size"
             width="w-full"

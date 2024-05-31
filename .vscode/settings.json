@@ -1,0 +1,32 @@
+{
+  // editor
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.tabCompletion": "on",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.snippetSuggestions": "top",
+  "editor.quickSuggestions": {
+    "comments": "on",
+    "strings": "on",
+    "other": "on"
+  },
+  // emmet
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact"
+  },
+  // prettier
+  "prettier.singleQuote": true,
+  "prettier.configPath": ".prettierrc",
+  // tailwind
+  "tailwindCSS.classAttributes": ["class", "className", "ngClass", "tw"],
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindcss.colorDecorators": "on",
+  "tailwindcss.documentColors": true,
+  "tailwindcss.hoverColorHint": "rgb",
+  "tailwindCSS.includeLanguages": {
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact"
+  },
+  "headwind.prependCustomClasses": true
+}

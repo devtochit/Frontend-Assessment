@@ -71,7 +71,7 @@ export const AddDeviceInfoForm = () => {
       ToastMessage(`Response from endpoint, ${response.data}`);
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error('Error:', error.response ? error.response.data : error.message);
+      console.error(error);
       Toasterror();
     }
   };

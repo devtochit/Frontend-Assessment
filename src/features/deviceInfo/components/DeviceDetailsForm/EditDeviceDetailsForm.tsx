@@ -31,8 +31,8 @@ export const EditDeviceInfoForm = () => {
     data: {
       year: '',
       price: '',
-      CPUModel: '',
-      hardDiskSize: '',
+      'CPU model': '',
+      'Hard disk size': '',
       color: '',
     },
   });

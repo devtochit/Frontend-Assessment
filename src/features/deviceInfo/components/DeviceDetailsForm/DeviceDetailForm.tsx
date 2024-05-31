@@ -1,6 +1,8 @@
+import type { JSXElementConstructor, ReactElement, ReactFragment, ReactNode } from 'react';
 import { useState } from 'react';
 
 import axios from 'axios';
+import type { ToastContentProps } from 'react-toastify';
 import { toast, ToastContainer } from 'react-toastify';
 
 import { useAppDispatch } from '@/store/hooks';
@@ -10,22 +12,33 @@ import { setDeleteModalOpen, setEditModalOpen } from '../../store';
 
 export const AddDeviceInfoForm = () => {
   const dispatch = useAppDispatch();
-  const notify = () => toast.success('You just added a new Item');
-  const Toasterror = () => toast.error('oops something went wrong');
+  const notify = () => toast.success('You just added a new item');
+  const Toasterror = () => toast.error('Oops, something went wrong');
+  const ToastMessage = (
+    message:
+      | string
+      | number
+      | boolean
+      | ReactElement<any, string | JSXElementConstructor<any>>
+      | ReactFragment
+      | ((props: ToastContentProps<unknown>) => ReactNode)
+      | null
+      | undefined
+  ) => toast.info(message);
   const [formData, setFormData] = useState({
     name: '',
     data: {
       year: '',
       price: '',
-      CPUModel: '',
-      hardDiskSize: '',
+      'CPU model': '',
+      'Hard disk size': '',
       color: '',
     },
   });
 
-  const handleChange = (e: { target: any }) => {
+  const handleChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
-    if (name === 'name' || name === 'id') {
+    if (name === 'name') {
       setFormData((prevData) => ({
         ...prevData,
         [name]: value,
@@ -40,18 +53,25 @@ export const AddDeviceInfoForm = () => {
       }));
     }
   };
+
   const isModalOpen = () => {
     dispatch(setDeleteModalOpen(false));
     dispatch(setEditModalOpen(false));
   };
+
   const onSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     try {
-      await axios.post('https://api.restful-api.dev/objects/', formData);
+      const response = await axios.post('https://api.restful-api.dev/objects/', formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       notify();
+      ToastMessage(`Response from endpoint, ${response.data}`);
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error('Error:', error);
+      console.error('Error:', error.response ? error.response.data : error.message);
       Toasterror();
     }
   };
@@ -64,7 +84,7 @@ export const AddDeviceInfoForm = () => {
       >
         <ToastContainer />
         <div className="flex flex-col gap-2 w-[450px]">
-          <p className="text-2xl">You can add more details about the Item</p>
+          <p className="text-2xl">You can add more details about the item</p>
 
           <Input
             className="text-center"
@@ -111,9 +131,9 @@ export const AddDeviceInfoForm = () => {
           <Input
             className="text-center"
             type="text"
-            id="CPUModel"
-            name="CPUModel"
-            value={formData.data.CPUModel}
+            id="CPU model"
+            name="CPU model"
+            value={formData.data['CPU model']}
             onChange={handleChange}
             placeholder="CPU Model"
             width="w-full"
@@ -125,9 +145,9 @@ export const AddDeviceInfoForm = () => {
           <Input
             className="text-center"
             type="text"
-            id="hardDiskSize"
-            name="hardDiskSize"
-            value={formData.data.hardDiskSize}
+            id="Hard disk size"
+            name="Hard disk size"
+            value={formData.data['Hard disk size']}
             onChange={handleChange}
             placeholder="Hard Disk Size"
             width="w-full"
@@ -156,7 +176,7 @@ export const AddDeviceInfoForm = () => {
           variant="primary"
           onClick={isModalOpen}
         >
-          {'Ok'}
+          Ok
         </Button>
       </form>
     </div>

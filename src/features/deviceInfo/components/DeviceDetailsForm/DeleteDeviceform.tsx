@@ -1,7 +1,9 @@
+import type { JSXElementConstructor, ReactElement, ReactFragment, ReactNode } from 'react';
 import { useState } from 'react';
 
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import type { ToastContentProps } from 'react-toastify';
 import { toast, ToastContainer } from 'react-toastify';
 
 import { useAppDispatch } from '@/store/hooks';
@@ -12,7 +14,17 @@ import { setEditModalOpen, setOpenModal } from '../../store';
 export const DeleteDeviceInfoForm = () => {
   const dispatch = useAppDispatch();
   const notify = () => toast.success('You just Deleted an Item');
-  const Toasterror = (error: unknown) => toast.error(`${error}`);
+  const Toasterror = (
+    message:
+      | string
+      | number
+      | boolean
+      | ReactElement<any, string | JSXElementConstructor<any>>
+      | ReactFragment
+      | ((props: ToastContentProps<unknown>) => ReactNode)
+      | null
+      | undefined
+  ) => toast.error(message);
 
   interface Params {
     deviceId: string;
@@ -39,13 +51,21 @@ export const DeleteDeviceInfoForm = () => {
 
   const onSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
+    const id = parseInt(formData.id, 10);
+    if (id >= 1 && id <= 13) {
+      Toasterror(
+        `${formData.id} is a reserved id and the data object of it cannot be deleted. You can create a new object via POST request and use the new generated id from it to send a Delete request`
+      );
+      return;
+    }
     try {
       await axios.delete(`https://api.restful-api.dev/objects/${formData.id}`);
       notify();
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('Error:', error);
-      Toasterror(error);
+
+      Toasterror('Oops something went wrong');
     }
   };
 

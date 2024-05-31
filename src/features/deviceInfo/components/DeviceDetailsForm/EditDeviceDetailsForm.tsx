@@ -67,6 +67,7 @@ export const EditDeviceInfoForm = () => {
       );
       return;
     }
+
     try {
       await axios.patch(`https://api.restful-api.dev/objects/${formData.id}`, formData);
       notify();
